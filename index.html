@@ -12,6 +12,54 @@ $("#target1").click(function(){$("#img").hide(); });
 });
 
 </script>
+  
+<script type="text/javascript">
+        var draw; //是否在繪圖狀態
+        var m, c; //繪圖物件
+        function init() {
+            m = document.getElementById("m"); //取得畫布物件參考
+            c = m.getContext("2d"); //建立2d繪圖物件
+            Radio5.checked = "checked";
+        }
+        function md() {
+            c.moveTo(event.offsetX, event.offsetY); //起點
+            draw = true; //進入繪圖模式
+            c.beginPath(); //本次繪圖筆畫開始
+        }
+        function mv() {
+            if (draw) {
+                c.lineTo(event.offsetX, event.offsetY); //下一點
+                c.stroke(); //繪圖
+            }
+        }
+        function mup() {
+            draw = false; //離開繪圖模式
+            c.closePath(); //繪圖筆畫結束
+        }
+        function Radio1_onclick() { c.strokeStyle = "rgb(255,0,0)"; }
+        function Radio2_onclick() { c.strokeStyle = "rgb(0,255,0)"; }
+        function Radio3_onclick() { c.strokeStyle = "rgb(0,0,255)"; }
+        function Radio4_onclick() { c.strokeStyle = "rgb(0,0,0)"; }
+        function Radio5_onclick() { c.lineWidth = 1; }
+        function Radio6_onclick() { c.lineWidth = 2; }
+        function Radio7_onclick() { c.lineWidth = 3; }
+        function Radio8_onclick() { c.lineWidth = 5; }
+        function Radio9_onclick() { c.lineWidth = 10; }
+        function Button1_onclick() { location.reload(); }
+    </script>
+  
+  
+  
+  
+<style type="text/css">
+        #Radio6 {
+            height: 19px;
+        }
+        .style1 {
+            font-size: x-large;
+            background-color: #FFFF00;
+        }
+    </style>
 
 </head>
 
@@ -49,3 +97,29 @@ $("#target1").click(function(){$("#img").hide(); });
 
 id="img"><center></div>
 
+<body onload="init()">
+    <center>
+    <span class="style1">網頁小畫家</span>
+    <div style="width: 400px; height: 300px; border-style: solid; border-width: 1px; text-align: center; background-color: #FFFFFF;"
+        onmousedown="md()" onmousemove="mv()" onmouseup="mup()">
+        <canvas id="m" width="400" height="300"></canvas>
+    </div>
+    </center>
+    <p style="text-align: center">
+        筆色：
+        <input id="Radio1" checked="" name="R" type="radio" value="V1" onclick="return Radio1_onclick()" />紅
+        <input id="Radio2" checked="" name="R" type="radio" value="V1" onclick="return Radio2_onclick()" />綠
+        <input id="Radio3" checked="" name="R" type="radio" value="V1" onclick="return Radio3_onclick()" />藍
+        <input id="Radio4" checked="checked" name="R" type="radio" value="V1" onclick="return Radio4_onclick()" />黑
+    </p>
+    <p style="text-align: center">
+        筆粗：
+        <input id="Radio5" checked="" name="W" type="radio" value="V1" onclick="return Radio5_onclick()" />1px
+        <input id="Radio6" checked="" name="W" type="radio" value="V1" onclick="return Radio6_onclick()" />2px
+        <input id="Radio7" checked="" name="W" type="radio" value="V1" onclick="return Radio7_onclick()" />3px
+        <input id="Radio8" checked="" name="W" type="radio" value="V1" onclick="return Radio8_onclick()" />5px
+        <input id="Radio9" checked="" name="W" type="radio" value="V1" onclick="return Radio9_onclick()" />10px
+    </p>
+    <p style="text-align: center">
+        <input id="Button1" type="button" value="清除畫面" onclick="return Button1_onclick()" />
+</body>
